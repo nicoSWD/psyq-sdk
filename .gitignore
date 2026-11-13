@@ -1,0 +1,13 @@
+# build output
+bin/
+build/
+*.o
+*.dSYM/
+
+# reference corpora and local caches: derived from the original SDK / commercial software, never published
+corpus/
+
+# editor / OS
+.idea/
+.vscode/
+.DS_Store
