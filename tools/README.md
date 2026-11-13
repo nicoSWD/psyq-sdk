@@ -152,3 +152,11 @@ This rewrites `c-parse.h` / `c-parse.c` accordingly.
 ```
 fix_bison_tokens.py c-parse.h c-parse.c
 ```
+
+## `smoke_test.sh`
+Runs every binary in `bin/` once on a tiny program (preprocess, compile, assemble, link, convert to an EXE). Needs no
+corpus; the release workflow runs it on every platform before packaging.
+
+```
+tools/smoke_test.sh
+```

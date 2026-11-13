@@ -6,7 +6,7 @@ for f in sys.argv[1:]:
     t = open(f).read()
     def repl(m):
         body = m.group(1)
-        return ''.join('#define %s %s\n' % (n, v) for n, v in re.findall(r'(\w+)\s*=\s*(\d+)', body))
+        return ''.join('#define %s %s\n' % (n, v) for n, v in re.findall(r'(\w+)\s*=\s*(-?\d+)', body))
     t2 = re.sub(r'enum\s+yytokentype\s*\{(.*?)\};', repl, t, flags=re.S)
     if t2 != t:
         open(f, 'w').write(t2)

@@ -62,3 +62,8 @@ static void psx_qsort (void *base, unsigned long n, unsigned long sz, int (*cmp)
 }
 #define qsort psx_qsort
 #endif
+
+/* old bison defined YYLEX as the lexer call; bison 3.x does not, and c-parse.y uses it in its actions */
+#ifndef YYLEX
+#define YYLEX yylex()
+#endif

@@ -1,7 +1,7 @@
-# psyq-sdk
+# PsyQ PlayStation (PS1) SDK
 
 A re-implementation of the command line tools of the **PsyQ** PlayStation (PS1) SDK, so that PS1 projects can be
-built on current systems — macOS (including Apple Silicon) and Linux — without the original Windows binaries,
+built on current systems (macOS, including Apple Silicon, and Linux) without the original Windows binaries,
 Wine or an emulator.
 
 The tools take the same command lines as the originals and produce the same files, byte for byte on every
@@ -11,11 +11,11 @@ reference input they were checked against.
 |---|---|---|---|
 | `cpppsx` | `cpppsx.exe` (C preprocessor, GNU cccp 2.8.1) | built from the PsyQ-patched GCC source | all sampled inputs identical |
 | `cc1psx` | `cc1psx.exe` 4.4 (GCC 2.8.1 SN) | built from the PsyQ-patched GCC source, with a few 64-bit fixes | 726 of 729 reference compile jobs identical |
-| `aspsx` | `aspsx.exe` 2.56 / 2.77 (shipped as 4.4) | C, clean-room | 688 of 688 jobs (5 differ only in how long code runs are split into records) |
-| `asmpsx` | `asmpsx.exe` | C, clean-room | 731 of 731 jobs |
-| `psylink` | `psylink.exe` | C, clean-room | 159 of 159 links: CPE image and every `file()` output |
+| `aspsx` | `aspsx.exe` 2.56 / 2.77 (shipped as 4.4) | C | 688 of 688 jobs (5 differ only in how long code runs are split into records) |
+| `asmpsx` | `asmpsx.exe` | C | 731 of 731 jobs |
+| `psylink` | `psylink.exe` | C | 159 of 159 links: CPE image and every `file()` output |
 | `psylink_overlay_fopen_mod` | the patched linker that writes over existing files | the same binary run under that name | included in the 159 links |
-| `cpe2exe` | `cpe2exe.exe` | C, clean-room | identical |
+| `cpe2exe` | `cpe2exe.exe` | C | identical |
 
 ## Building
 
@@ -61,15 +61,28 @@ The PsyQ libraries and headers are not part of this repository: you need your ow
 
 ## How it was checked
 
-The behaviour of the original tools was learned from their input and output files, not from their code. For each
+The behaviour of the original tools was learned from their input and output files and from analysis of the
+binaries; none of their code is included. For each
 tool a reference corpus was produced by running the original program on the jobs of a real project, and the
 re-implementation is scored against it job by job. What was learned is written down in
 [`docs/behaviour-notes.md`](docs/behaviour-notes.md); the scripts that produce and check the corpora are described
 in [`tools/README.md`](tools/README.md). The corpora themselves are derived from commercial software and from the
 original SDK and are **not** in this repository.
 
-## Legal
+## Releases
 
-This is an independent, clean-room project and is not affiliated with Sony Interactive Entertainment or SN
-Systems. PlayStation and PsyQ are trademarks of their respective owners. No original SDK code or binaries are
-included. No licence has been chosen for the code in this repository yet.
+Pushing a tag `vX.Y.Z` builds every tool on macOS (arm64, x86_64) and Linux (x86_64, arm64) and attaches one
+`psyq-sdk-<version>-<os>-<arch>.tar.gz` per platform, plus SHA-256 sums, to a GitHub release. Each archive holds
+`bin/` with all seven tools, the licence files and `THIRD_PARTY.md`.
+
+## Licence
+
+The code in this repository (`aspsx`, `asmpsx`, `psylink`, `cpe2exe`, the build scripts and the Python tools) is
+released under the [MIT licence](LICENSE).
+
+`cpppsx` and `cc1psx` are built from GNU GCC 2.8.1 source (with the PsyQ patches) and are therefore GPL-2.0-or-later.
+The patches and build scripts in `src/cpppsx` and `src/cc1psx` are released under the same terms. Release archives
+contain those two binaries; [`THIRD_PARTY.md`](THIRD_PARTY.md) names the exact source they are built from.
+
+This project is not affiliated with Sony Interactive Entertainment or SN Systems. PlayStation and PsyQ are
+trademarks of their respective owners. No original SDK code or binaries are included.

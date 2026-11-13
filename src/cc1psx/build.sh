@@ -44,6 +44,12 @@ for fn in ('error', 'fatal', 'warning'):
     t = t.replace('extern void   %s ();\n' % fn, '')
 open(p, 'w').write(t)
 
+# 5. bison 3.x rejects `$$` in a mid-rule action that has no declared type (bison 2.3 on macOS accepts it)
+p = g + '/c-parse.in'
+t = open(p).read()
+t = re.sub(r'\$\$ = (start_struct|start_enum)', r'$<ttype>$ = \1', t)
+open(p, 'w').write(t)
+
 # 4. File switching (data first, text second) only when the GP optimisation is on, as the real compiler does
 p = g + '/config/mips/psx.h'
 t = open(p).read()
