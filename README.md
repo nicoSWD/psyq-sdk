@@ -27,7 +27,7 @@ builds everything into `bin/`. `make standalone` builds only the tools that need
 (`aspsx`, `asmpsx`, `psylink`, `cpe2exe`). `cpppsx` and `cc1psx` are built from upstream GPL source that the build
 scripts fetch from [nocato/homebrew-psyq](https://github.com/nocato/homebrew-psyq) at a pinned commit and patch
 for a modern 64-bit host; nothing from that tree is copied into this repository. They need `git`, `bison`,
-`autoconf` and `clang`.
+`autoconf`, `gperf` and `clang`.
 
 ## Using the tools
 

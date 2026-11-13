@@ -1,5 +1,5 @@
 # Builds every tool into bin/.  Needs: a C compiler, make, python3 and, for the two tools that are built from
-# upstream GPL source (cpppsx, cc1psx), also git, bison, autoconf and clang.
+# upstream GPL source (cpppsx, cc1psx), also git, bison, autoconf, gperf and clang.
 CC      ?= cc
 CFLAGS  ?= -O2 -Wall -Wextra -Wno-unused-parameter
 
